@@ -684,7 +684,11 @@
             [self hideMenuViewControllerAnimated:NO];
         }
         else {
-            if ([recognizer velocityInView:self.view].x > 0) {
+            BOOL isVelocityInView = [recognizer velocityInView:self.view].x > 0;
+#if TARGET_OS_SIMULATOR
+            isVelocityInView = YES;
+#endif
+            if (isVelocityInView) {
                 if (self.contentViewContainer.frame.origin.x < 0) {
                     [self hideMenuViewController];
                 } else {
